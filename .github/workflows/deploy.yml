@@ -1,0 +1,93 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check deploy secrets
+        id: gate
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+        run: |
+          if [ -z "$DEPLOY_SSH_KEY" ] || [ -z "$DEPLOY_HOST" ]; then
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "DEPLOY_SSH_KEY or DEPLOY_HOST not set — skipping deploy (set repo secrets to enable)."
+          else
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/setup-node@v4
+        if: steps.gate.outputs.enabled == 'true'
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Build web
+        if: steps.gate.outputs.enabled == 'true'
+        working-directory: web
+        env:
+          VITE_PRIVY_APP_ID: ${{ secrets.VITE_PRIVY_APP_ID }}
+          VITE_WALLETCONNECT_PROJECT_ID: ${{ secrets.VITE_WALLETCONNECT_PROJECT_ID }}
+        run: npm ci && npm run build
+
+      - name: Configure SSH
+        if: steps.gate.outputs.enabled == 'true'
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          PORT="${DEPLOY_PORT:-22}"
+          ssh-keyscan -p "$PORT" -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
+
+      - name: Rsync web dist + server + deploy templates
+        if: steps.gate.outputs.enabled == 'true'
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+        run: |
+          USER="${DEPLOY_USER:-root}"
+          PATH_REMOTE="${DEPLOY_PATH:-/opt/triangle}"
+          PORT="${DEPLOY_PORT:-22}"
+          SSH="ssh -i ~/.ssh/deploy_key -p $PORT -o StrictHostKeyChecking=accept-new"
+          $SSH "$USER@$DEPLOY_HOST" "mkdir -p '$PATH_REMOTE/web/dist' '$PATH_REMOTE/server' '$PATH_REMOTE/deploy'"
+          rsync -avz --delete -e "$SSH" web/dist/ "$USER@$DEPLOY_HOST:$PATH_REMOTE/web/dist/"
+          rsync -avz -e "$SSH" \
+            --exclude node_modules \
+            --exclude .env \
+            server/ "$USER@$DEPLOY_HOST:$PATH_REMOTE/server/"
+          rsync -avz -e "$SSH" deploy/ "$USER@$DEPLOY_HOST:$PATH_REMOTE/deploy/"
+
+      - name: Install deps & restart API
+        if: steps.gate.outputs.enabled == 'true'
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+        run: |
+          USER="${DEPLOY_USER:-root}"
+          PATH_REMOTE="${DEPLOY_PATH:-/opt/triangle}"
+          PORT="${DEPLOY_PORT:-22}"
+          ssh -i ~/.ssh/deploy_key -p "$PORT" -o StrictHostKeyChecking=accept-new \
+            "$USER@$DEPLOY_HOST" \
+            "set -e; cd '$PATH_REMOTE/server' && npm ci --omit=dev && (systemctl restart triangle-api 2>/dev/null || pm2 restart triangle-api 2>/dev/null || true)"
