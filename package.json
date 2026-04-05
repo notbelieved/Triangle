@@ -1,0 +1,15 @@
+{
+  "name": "triangle",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -n web,api -c blue,magenta \"npm run dev --prefix web\" \"npm run dev --prefix server\"",
+    "dev:web": "npm run dev --prefix web",
+    "dev:api": "npm run dev --prefix server",
+    "db:setup": "npm run db:setup --prefix server",
+    "build": "npm run build --prefix web",
+    "preview": "npm run preview --prefix web"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

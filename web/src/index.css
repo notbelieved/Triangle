@@ -1,0 +1,202 @@
+@import 'tailwindcss';
+
+@property --b1 { syntax: '<number>'; inherits: false; initial-value: 210; }
+@property --b2 { syntax: '<number>'; inherits: false; initial-value: 155; }
+@property --b3 { syntax: '<number>'; inherits: false; initial-value: 285; }
+@property --b4 { syntax: '<number>'; inherits: false; initial-value: 115; }
+@property --b5 { syntax: '<number>'; inherits: false; initial-value: 320; }
+
+@layer base {
+  :root {
+    --accent:        oklch(50% 0.14 283);
+    --accent-mid:    oklch(65% 0.10 283);
+    --accent-light:  oklch(97% 0.025 283);
+    --accent-border: oklch(89% 0.05 283);
+
+    --mint:       oklch(68% 0.12 155);
+    --mint-light: oklch(97% 0.03 155);
+
+    --surface:  oklch(99.5% 0.003 280);
+    --border:   oklch(91% 0.02  280);
+
+    --text-primary:   oklch(17% 0.025 270);
+    --text-secondary: oklch(42% 0.025 270);
+    --text-tertiary:  oklch(63% 0.018 270);
+
+    --shadow-card:
+      0 1px 2px  oklch(50% 0.08 283 / 0.04),
+      0 4px 14px oklch(50% 0.08 283 / 0.06),
+      0 16px 48px oklch(50% 0.08 283 / 0.03);
+  }
+
+  body {
+    @apply m-0 min-h-dvh antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--text-primary);
+
+    background-color: #ffffff;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+@keyframes aurora {
+  0%, 100% {
+    --b1: 210;
+    --b2: 155;
+    --b3: 285;
+    --b4: 115;
+    --b5: 320;
+  }
+  33% {
+    --b1: 115;
+    --b2: 220;
+    --b3: 290;
+    --b4: 125;
+    --b5: 210;
+  }
+  66% {
+    --b1: 320;
+    --b2: 145;
+    --b3: 145;
+    --b4: 210;
+    --b5: 270;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body { animation: none; }
+}
+
+@keyframes float-pink {
+  0%, 100% { transform: translate(0, 0)      scale(1);    opacity: 0.55; }
+  33%       { transform: translate(-4%, 6%)   scale(1.06); opacity: 0.65; }
+  66%       { transform: translate(3%, -4%)   scale(0.96); opacity: 0.50; }
+}
+@keyframes float-green {
+  0%, 100% { transform: translate(0, 0)      scale(1);    opacity: 0.50; }
+  33%       { transform: translate(5%, -5%)   scale(1.08); opacity: 0.60; }
+  66%       { transform: translate(-3%, 4%)   scale(0.95); opacity: 0.45; }
+}
+@keyframes float-blue {
+  0%, 100% { transform: translate(0, 0)      scale(1);    opacity: 0.35; }
+  50%       { transform: translate(3%, 5%)    scale(1.05); opacity: 0.45; }
+}
+
+.trusted-svg {
+  height: 1.1em;
+  width: auto;
+  overflow: visible;
+  vertical-align: baseline;
+  margin-top: -0.05em;
+  margin-bottom: -0.1em;
+}
+
+.trusted-text-base {
+  font-size: 45px;
+  font-weight: 700;
+  font-family: 'Inter', system-ui, sans-serif;
+  fill: url(#text-fill-gradient);
+}
+
+.trusted-shine-stroke {
+  font-size: 45px;
+  font-weight: 700;
+  font-family: 'Inter', system-ui, sans-serif;
+  fill: none;
+  stroke: url(#accent-shine);
+  stroke-width: 0.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.overflow-y-auto {
+  scrollbar-width: thin;
+  scrollbar-color: oklch(88% 0.04 283) transparent;
+}
+.overflow-y-auto::-webkit-scrollbar {
+  width: 4px;
+}
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: oklch(88% 0.05 283);
+  border-radius: 9999px;
+}
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: oklch(78% 0.08 283);
+}
+
+.nav-pill-link {
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.nav-pill-link:hover {
+  background: rgba(0,0,0,0.05);
+  color: var(--text-primary);
+}
+.nav-pill-link--muted {
+  opacity: 0.55;
+  cursor: default;
+  pointer-events: none;
+}
+
+
+@layer utilities {
+  .deal-shadow     { box-shadow: var(--shadow-card); }
+  .deal-card-border { border-color: var(--border); }
+}
+
+@keyframes ping-slow {
+  0%   { transform: scale(1);   opacity: 0.7; }
+  70%  { transform: scale(2.2); opacity: 0; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+.animate-ping-slow {
+  animation: ping-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up       { animation: fade-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-fade-up-delay { animation: fade-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both; }
+
+@keyframes reveal-block {
+  from { opacity: 0; transform: translateY(6px) scale(0.99); }
+  to   { opacity: 1; transform: translateY(0)   scale(1); }
+}
+.animate-reveal { animation: reveal-block 0.35s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.animate-fade-in { animation: fade-in 0.3s ease-out both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade-up-delay,
+  .animate-reveal,
+  .animate-fade-in,
+  .animate-ping-slow {
+    animation: none !important;
+  }
+}

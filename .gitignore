@@ -1,0 +1,35 @@
+# Env & secrets
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.local
+
+# Dependencies
+node_modules/
+
+# Web (Vite)
+web/dist
+web/dist-ssr
+web/*.local
+
+# Solana / Anchor
+solana-program/target/
+solana-program/test-ledger/
+solana-program/.anchor/
+/target/
+
+# Never commit Solana keypair dumps
+server/authority.json
+
+# Logs & OS
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Misc
+*.pem
+payer-deploy-temp.json
