@@ -86,7 +86,7 @@ And this cannot be implemented on Ethereum
 |:---:|:---:|:---:|
 | ![Landing](docs/assets/landing.png) | ![Profile](docs/assets/dashboard.png) | ![New deal](docs/assets/new-deal.png) |
 
-Screenshots live in [`docs/assets/`](docs/assets/). When you ship a public deployment, add the demo URL to Quick links.
+Screenshots live in [`docs/assets/`](docs/assets/).
 
 ---
 
