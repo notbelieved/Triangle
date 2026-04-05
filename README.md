@@ -24,7 +24,6 @@
 |---|---|
 | **Solana program** | [`solana-program/README.md`](solana-program/README.md) |
 | **Documentation** | [`docs/README.md`](docs/README.md) — architecture, API, roadmap |
-| **Deploy (GitHub Actions)** | [`docs/deploy.md`](docs/deploy.md) |
 | **Source** | [github.com/notbelieved/Triangle](https://github.com/notbelieved/Triangle) |
 
 ---
