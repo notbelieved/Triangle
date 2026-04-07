@@ -39,3 +39,34 @@ jobs:
       - run: npm ci
       - name: Load escrow modules (no .env required)
         run: node -e "require('./escrowProgram.js'); require('./escrowApi.js'); console.log('ok');"
+
+  solana:
+    name: Anchor program (build + test)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: solana-program
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install system deps (Solana BPF / Anchor)
+        run: sudo apt-get update && sudo apt-get install -y libudev-dev pkg-config libssl-dev protobuf-compiler cmake
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: solana-program
+      - name: Install Solana CLI
+        run: |
+          sh -c "$(curl -sSfL https://release.solana.com/stable/install)"
+          echo "$HOME/.local/share/solana/install/active_release/bin" >> "$GITHUB_PATH"
+      - name: Install Anchor CLI
+        run: cargo install --git https://github.com/coral-xyz/anchor --tag v0.32.1 anchor-cli --locked
+      - name: Anchor build
+        run: anchor build
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: solana-program/package-lock.json
+      - run: npm ci
+      - name: Anchor test (local validator + rwa-mock-local)
+        run: anchor test

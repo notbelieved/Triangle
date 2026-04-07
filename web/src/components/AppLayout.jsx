@@ -28,7 +28,7 @@ export default function AppLayout() {
             aria-label="Triangle home"
           >
             <TriangleMark className="h-8 w-8 shrink-0 translate-y-[3px]" />
-            <span className="text-[17px] font-bold leading-none tracking-tight text-[--text-primary]">
+            <span className="text-[17px] font-bold leading-none tracking-tight text-(--text-primary)">
               Triangle
             </span>
           </Link>

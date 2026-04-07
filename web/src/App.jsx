@@ -7,6 +7,7 @@ import NewDealPage from './pages/NewDealPage.jsx'
 import DealDetailPage from './pages/DealDetailPage.jsx'
 import SupportPage from './pages/SupportPage.jsx'
 import ProfilePage from './pages/ProfilePage.jsx'
+import ProfileTokenDetailPage from './pages/ProfileTokenDetailPage.jsx'
 
 function Protected({ children }) {
   const { ready, authenticated } = usePrivy()
@@ -33,6 +34,7 @@ export default function App() {
         }
       >
         <Route path="/dashboard" element={<Navigate to="/deals" replace />} />
+        <Route path="/profile/tokens/:mint" element={<ProfileTokenDetailPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/support" element={<SupportPage />} />
         <Route path="/deals/new" element={<NewDealPage />} />

@@ -7,7 +7,11 @@
     "dev:api": "npm run dev --prefix server",
     "db:setup": "npm run db:setup --prefix server",
     "build": "npm run build --prefix web",
-    "preview": "npm run preview --prefix web"
+    "preview": "npm run preview --prefix web",
+    "solana:deps": "npm ci --prefix solana-program",
+    "solana:build": "npm run build --prefix solana-program",
+    "solana:test": "npm run test --prefix solana-program",
+    "fork:mainnet": "powershell -ExecutionPolicy Bypass -File solana-program/scripts/start-mainnet-fork.ps1"
   },
   "devDependencies": {
     "concurrently": "^9.2.1"

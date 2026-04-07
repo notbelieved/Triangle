@@ -22,13 +22,13 @@ export default function SupportModal({ open, onClose }) {
       onClick={onClose}
     >
       <div
-        className="w-full max-w-md rounded-[20px] border border-[--border] bg-white p-6 deal-shadow animate-fade-up"
+        className="w-full max-w-md rounded-[20px] border border-(--border) bg-white p-6 deal-shadow animate-fade-up"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 id="support-title" className="text-base font-semibold text-[--text-primary]">
+        <h2 id="support-title" className="text-base font-semibold text-(--text-primary)">
           Support
         </h2>
-        <p className="mt-2.5 text-sm leading-relaxed text-[--text-secondary]">
+        <p className="mt-2.5 text-sm leading-relaxed text-(--text-secondary)">
           Need help with Triangle or your deals? Reach out and we'll get back to you.
         </p>
         <a
@@ -41,7 +41,7 @@ export default function SupportModal({ open, onClose }) {
         <button
           type="button"
           onClick={onClose}
-          className="mt-3 block w-full rounded-[14px] border border-[--border] py-2.5 text-sm font-medium text-[--text-secondary] hover:bg-[--accent-light] hover:text-[--accent] transition-colors cursor-pointer"
+          className="mt-3 block w-full rounded-[14px] border border-(--border) py-2.5 text-sm font-medium text-(--text-secondary) hover:bg-(--accent-light) hover:text-(--accent) transition-colors cursor-pointer"
         >
           Close
         </button>

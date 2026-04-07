@@ -17,6 +17,6 @@ export default function MissingPrivyConfig() {
           Restart <code className="rounded bg-slate-100 px-1">npm run dev</code> after saving.
         </p>
       </div>
-    </div>
-  )
+    </div>);
+
 }

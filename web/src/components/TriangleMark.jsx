@@ -1,8 +1,8 @@
-import { useId } from 'react'
+import { useId } from 'react';
 
 export default function TriangleMark({ className = '' }) {
-  const uid = useId().replace(/[^a-zA-Z0-9]/g, '')
-  const p = `tm${uid}`
+  const uid = useId().replace(/[^a-zA-Z0-9]/g, '');
+  const p = `tm${uid}`;
 
   return (
     <svg
@@ -11,8 +11,8 @@ export default function TriangleMark({ className = '' }) {
       fill="none"
       shapeRendering="geometricPrecision"
       className={className}
-      aria-hidden
-    >
+      aria-hidden>
+      
       <defs>
         <linearGradient id={`${p}-l`} x1="16" y1="2.5" x2="4.5" y2="26.5" gradientUnits="userSpaceOnUse">
           <stop stopColor="#5c5a6c" />
@@ -35,6 +35,6 @@ export default function TriangleMark({ className = '' }) {
         <path fill={`url(#${p}-r)`} d="M16 3.3 27.4 25.5 16 28.3 16 3.3Z" />
         <path fill="#fff" fillOpacity="0.11" d="M16 5 26.1 25.1 16 19.8 16 5Z" />
       </g>
-    </svg>
-  )
+    </svg>);
+
 }

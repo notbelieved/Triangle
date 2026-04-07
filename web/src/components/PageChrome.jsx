@@ -54,18 +54,18 @@ export function PageChrome({ children, title, subtitle, backTo, backLabel = 'Bac
         {backTo ? (
           <Link
             to={backTo}
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-[--text-secondary] hover:text-[--accent] transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-(--text-secondary) hover:text-(--accent) transition-colors"
           >
             {backLabel}
           </Link>
         ) : null}
         {title ? (
           <header className={backTo ? 'mt-4' : ''}>
-            <h1 className="text-2xl font-semibold tracking-tight text-[--text-primary] sm:text-3xl">
+            <h1 className="text-2xl font-semibold tracking-tight text-(--text-primary) sm:text-3xl">
               {title}
             </h1>
             {subtitle ? (
-              <p className="mt-2 text-sm text-[--text-secondary]">{subtitle}</p>
+              <p className="mt-2 text-sm text-(--text-secondary)">{subtitle}</p>
             ) : null}
           </header>
         ) : null}

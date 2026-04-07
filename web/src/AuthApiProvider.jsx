@@ -19,7 +19,14 @@ export default function AuthApiProvider({ children }) {
         }
         const res = await fetch(`/api${path}`, { ...options, headers })
         const data = await res.json().catch(() => ({}))
-        if (!res.ok) throw new Error(data.error || res.statusText)
+        if (!res.ok) {
+          const base = data.error || res.statusText
+          const tail =
+            typeof data.simulationLogTail === 'string' && data.simulationLogTail.trim()
+              ? `\n\n${data.simulationLogTail.trim()}`
+              : ''
+          throw new Error(base + tail)
+        }
         return data
       },
     [getAccessToken],

@@ -11,7 +11,7 @@ const POLL_MS = 2800
 
 const STATUS_STYLE = {
   open:     'bg-slate-100 text-slate-500',
-  accepted: 'bg-[--accent-light] text-[--accent]',
+  accepted: 'bg-(--accent-light) text-(--accent)',
   funded:   'bg-emerald-50 text-emerald-700',
   released: 'bg-emerald-50 text-emerald-500',
   refunded: 'bg-amber-50 text-amber-700',
@@ -68,7 +68,7 @@ export default function DealsPage() {
         <div className="mx-auto max-w-3xl">
           <div className="flex items-center gap-2 animate-pulse">
             {[1,2,3].map(i => (
-              <div key={i} className="h-2 w-2 rounded-full bg-[--accent-border]" style={{ animationDelay: `${i * 0.15}s` }} />
+              <div key={i} className="h-2 w-2 rounded-full bg-(--accent-border)" style={{ animationDelay: `${i * 0.15}s` }} />
             ))}
           </div>
         </div>
@@ -96,10 +96,10 @@ export default function DealsPage() {
       <div className="mx-auto max-w-3xl animate-fade-up">
         <div className="flex items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-semibold tracking-tight text-[--text-primary] sm:text-3xl">
+            <h1 className="text-2xl font-semibold tracking-tight text-(--text-primary) sm:text-3xl">
               Deals
             </h1>
-            <p className="mt-1 text-sm text-[--text-secondary]">
+            <p className="mt-1 text-sm text-(--text-secondary)">
               Your open listings and active deals on Solana Devnet
             </p>
           </div>
@@ -123,8 +123,8 @@ export default function DealsPage() {
                   <path d="M12 5v14M5 12h14" />
                 </svg>
               </div>
-              <p className="text-base font-semibold text-[--text-primary]">No deals yet</p>
-              <p className="mt-1.5 max-w-xs text-sm text-[--text-secondary]">
+              <p className="text-base font-semibold text-(--text-primary)">No deals yet</p>
+              <p className="mt-1.5 max-w-xs text-sm text-(--text-secondary)">
                 Create your first listing. Anyone on Solana Devnet can accept it.
               </p>
               <Link
@@ -139,13 +139,13 @@ export default function DealsPage() {
             <div className="overflow-hidden rounded-[20px] border deal-card-border bg-white/85 backdrop-blur-md deal-shadow">
               <table className="w-full text-left text-sm">
                 <thead>
-                  <tr className="border-b border-[--border]">
-                    <th className="px-5 py-3.5 text-[10px] font-semibold uppercase tracking-wider text-[--text-tertiary]">Deal</th>
-                    <th className="px-5 py-3.5 text-[10px] font-semibold uppercase tracking-wider text-[--text-tertiary]">Network</th>
-                    <th className="px-5 py-3.5 text-[10px] font-semibold uppercase tracking-wider text-[--text-tertiary]">Asset</th>
-                    <th className="px-5 py-3.5 text-[10px] font-semibold uppercase tracking-wider text-[--text-tertiary]">Amount</th>
-                    <th className="px-5 py-3.5 text-[10px] font-semibold uppercase tracking-wider text-[--text-tertiary]">Role</th>
-                    <th className="px-5 py-3.5 text-[10px] font-semibold uppercase tracking-wider text-[--text-tertiary]">Status</th>
+                  <tr className="border-b border-(--border)">
+                    <th className="px-5 py-3.5 text-[10px] font-semibold uppercase tracking-wider text-(--text-tertiary)">Deal</th>
+                    <th className="px-5 py-3.5 text-[10px] font-semibold uppercase tracking-wider text-(--text-tertiary)">Network</th>
+                    <th className="px-5 py-3.5 text-[10px] font-semibold uppercase tracking-wider text-(--text-tertiary)">Asset</th>
+                    <th className="px-5 py-3.5 text-[10px] font-semibold uppercase tracking-wider text-(--text-tertiary)">Amount</th>
+                    <th className="px-5 py-3.5 text-[10px] font-semibold uppercase tracking-wider text-(--text-tertiary)">Role</th>
+                    <th className="px-5 py-3.5 text-[10px] font-semibold uppercase tracking-wider text-(--text-tertiary)">Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -153,23 +153,23 @@ export default function DealsPage() {
                     <tr
                       key={d.id}
                       onClick={() => navigate(`/deals/${d.id}`)}
-                      className="border-b border-[--border] last:border-0 hover:bg-[--accent-light]/40 transition-colors cursor-pointer"
+                      className="border-b border-(--border) last:border-0 hover:bg-(--accent-light)/40 transition-colors cursor-pointer"
                     >
-                      <td className="px-5 py-4 font-mono text-xs font-semibold text-[--accent]">
+                      <td className="px-5 py-4 font-mono text-xs font-semibold text-(--accent)">
                         {d.id.slice(0, 8)}…
                       </td>
-                      <td className="px-5 py-4 text-xs text-[--text-secondary]">
+                      <td className="px-5 py-4 text-xs text-(--text-secondary)">
                         {NETWORK_LABEL[d.network] || d.network || '—'}
                       </td>
                       <td className="px-5 py-4">
-                        <span className="rounded-full bg-[--accent-light] px-2.5 py-0.5 text-[11px] font-semibold text-[--accent]">
+                        <span className="rounded-full bg-(--accent-light) px-2.5 py-0.5 text-[11px] font-semibold text-(--accent)">
                           {d.asset || '—'}
                         </span>
                       </td>
-                      <td className="px-5 py-4 font-mono text-sm text-[--text-primary]">
+                      <td className="px-5 py-4 font-mono text-sm text-(--text-primary)">
                         {d.amount != null ? formatDealAmount(d.amount) ?? d.amount : '—'}
                       </td>
-                      <td className="px-5 py-4 capitalize text-xs text-[--text-secondary]">{d.role}</td>
+                      <td className="px-5 py-4 capitalize text-xs text-(--text-secondary)">{d.role}</td>
                       <td className="px-5 py-4">
                         <span className={`rounded-full px-2.5 py-0.5 text-[11px] font-semibold capitalize ${STATUS_STYLE[d.status] ?? 'bg-slate-100 text-slate-500'}`}>
                           {d.status}

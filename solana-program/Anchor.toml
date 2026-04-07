@@ -8,14 +8,16 @@ skip-lint = false
 triangle_escrow = "7RnW9zpz4vwmebbPJqh5hSTdvUSrFGdZGZYWFZSbfgcV"
 
 [programs.localnet]
-triangle_escrow = "2HkSjnP2jL7RqmcVWzG1A39VNGLyNybkq1V9xuV7jFqW"
+triangle_escrow = "7RnW9zpz4vwmebbPJqh5hSTdvUSrFGdZGZYWFZSbfgcV"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "devnet"
+# localnet so `anchor test` deploys to the ephemeral local validator (no funded devnet wallet required).
+# Deploy to devnet: anchor deploy --provider.cluster devnet
+cluster = "localnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
-test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
+test = "npx ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"

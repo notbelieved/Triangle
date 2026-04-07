@@ -84,7 +84,7 @@ export default function HomePage() {
   if (!ready) {
     return (
       <div className="flex min-h-dvh items-center justify-center">
-        <p className="text-[--text-tertiary] text-sm">Loading…</p>
+        <p className="text-(--text-tertiary) text-sm">Loading…</p>
       </div>
     )
   }
@@ -108,7 +108,7 @@ export default function HomePage() {
             aria-label="Triangle home"
           >
             <TriangleMark className="h-8 w-8 shrink-0 translate-y-[3px]" />
-            <span className="text-[17px] font-bold leading-none tracking-tight text-[--text-primary]">
+            <span className="text-[17px] font-bold leading-none tracking-tight text-(--text-primary)">
               Triangle
             </span>
           </Link>
@@ -141,7 +141,7 @@ export default function HomePage() {
               aria-label="Toggle menu"
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden flex h-9 w-9 items-center justify-center rounded-full hover:bg-black/5 transition-colors cursor-pointer text-[--text-primary]"
+              className="lg:hidden flex h-9 w-9 items-center justify-center rounded-full hover:bg-black/5 transition-colors cursor-pointer text-(--text-primary)"
             >
               {mobileOpen ? <X size={18} /> : <Menu size={18} />}
             </button>
@@ -153,27 +153,31 @@ export default function HomePage() {
             {authenticated ? (
               <>
                 <Link to="/deals/new" onClick={() => setMobileOpen(false)}
-                  className="block px-4 py-3 rounded-xl text-sm font-medium text-[--text-primary] hover:bg-black/5 transition-colors">
+                  className="block px-4 py-3 rounded-xl text-sm font-medium text-(--text-primary) hover:bg-black/5 transition-colors">
                   Make a deal
                 </Link>
                 <Link to="/deals" onClick={() => setMobileOpen(false)}
-                  className="block px-4 py-3 rounded-xl text-sm font-medium text-[--text-primary] hover:bg-black/5 transition-colors">
+                  className="block px-4 py-3 rounded-xl text-sm font-medium text-(--text-primary) hover:bg-black/5 transition-colors">
                   Deals
                 </Link>
                 <Link to="/profile" onClick={() => setMobileOpen(false)}
-                  className="block px-4 py-3 rounded-xl text-sm font-medium text-[--text-primary] hover:bg-black/5 transition-colors">
+                  className="block px-4 py-3 rounded-xl text-sm font-medium text-(--text-primary) hover:bg-black/5 transition-colors">
                   Profile
                 </Link>
                 {isSupport ? (
                   <Link to="/support" onClick={() => setMobileOpen(false)}
-                    className="block px-4 py-3 rounded-xl text-sm font-medium text-[--text-primary] hover:bg-black/5 transition-colors">
+                    className="block px-4 py-3 rounded-xl text-sm font-medium text-(--text-primary) hover:bg-black/5 transition-colors">
                     Support
                   </Link>
                 ) : null}
+                <Link to="/deals/new" onClick={() => setMobileOpen(false)}
+                  className="block px-4 py-3 rounded-xl text-sm font-medium text-(--text-primary) hover:bg-black/5 transition-colors">
+                  Create token
+                </Link>
               </>
             ) : null}
             <button type="button" onClick={() => { setSupportOpen(true); setMobileOpen(false) }}
-              className="block w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-[--text-tertiary] hover:bg-black/5 transition-colors cursor-pointer">
+              className="block w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-(--text-tertiary) hover:bg-black/5 transition-colors cursor-pointer">
               Support
             </button>
           </div>
@@ -194,7 +198,7 @@ export default function HomePage() {
 
         <div className="relative mx-auto w-full max-w-6xl pointer-events-none" style={{ zIndex: 3 }}>
           <div className="ml-4 md:ml-8 lg:ml-16 animate-fade-up">
-            <p className="text-[--text-tertiary] text-base md:text-lg mb-5 font-medium">
+            <p className="text-(--text-tertiary) text-base md:text-lg mb-5 font-medium">
               The crypto app for everyone
             </p>
 

@@ -2,6 +2,7 @@
 .env
 .env.*
 !.env.example
+!web/.env.development
 **/.env
 **/.env.local
 
@@ -21,6 +22,8 @@ solana-program/.anchor/
 
 # Never commit Solana keypair dumps
 server/authority.json
+solana-program/scripts/demo-seller.json
+solana-program/scripts/demo-buyer.json
 
 # Logs & OS
 *.log
@@ -33,3 +36,6 @@ Thumbs.db
 # Misc
 *.pem
 payer-deploy-temp.json
+solana-program/.payer-deploy-temp.json
+server/scripts/.rwa-test-payer.json
+server/scripts/LAST_RWA_TEST_MINT.txt
